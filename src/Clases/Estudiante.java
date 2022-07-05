@@ -9,9 +9,13 @@ Ver  Historial acadÃ©mico Â¼
  */
 public class Estudiante extends Usuario{
 
-	public Estudiante(String nombre, String apellido, String fechaNacimiento, int dni, String domicilio, String email,
-			String contraseña) {
-		super(nombre, apellido, fechaNacimiento, dni, domicilio, email, contraseña);
+	
+	
+	public Estudiante(String nombre, String apellido, String fechaNacimiento, 
+			int dni, String domicilio, String numero,
+			String email, String contraseña) {
+		super(nombre, apellido, fechaNacimiento, dni, 
+				domicilio, numero, email, contraseña);
 		// TODO Auto-generated constructor stub
 	}
 	private void inscripcionCarrera(){
