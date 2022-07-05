@@ -6,22 +6,20 @@ public class Menu {
 	private String respuesta;
 	private int idMenu;
 	
-	//Recibe una id para saber quÃ© MenÃº crear (switch).
+	//Recibe una id para saber que menu crear (switch).
 	public static void armarMenu(int idMenu, Scanner sc) {
-		String respuesta,nombre =null, apellido=null,fechaNacimiento=null,
-		domicilio = null, email = null,telefono=null,contraseña=null;
+		String respuesta,nombre, apellido,fechaNacimiento,
+		domicilio, email,telefono,contraseña;
 		boolean aux = true;
-		int dni= 0; 
-		Estudiante estudiante1 = new Estudiante(nombre,apellido,fechaNacimiento,
-				dni,domicilio,email,telefono,contraseña);
-		//Bucle para que siempre haya un MenÃº en pantalla.
+		int dni= 0;
+		//Bucle para que siempre haya un Menu en pantalla, a menos que se indique (aux = false;).
 		do {
 			System.out.printf("Módulo de Gestión Académica\n");
 			System.out.printf("Facultad de Humanidades\n");
 			System.out.printf("\nidMenu = "+idMenu);
 			switch (idMenu) {
 			case 0: {
-				// MenÃº de Inicio.
+				// Menu de Inicio.
 				System.out.printf("\n###############################################\n");
 				System.out.printf("\nA) Iniciar Sesión\nB) Registrarse\nC) Salir\n");
 				System.out.printf("\nA continuaciÃ³n, elija una opciÃ³n (A,B,C): ");
@@ -40,15 +38,17 @@ public class Menu {
 				contraseña = sc.nextLine();
 				System.out.printf("\n###############################################\n");
 				
-				idMenu = 0; // MomentÃ¡neo, para que el bucle no sea infinito.
-				
-				if(estudiante1 != null) {
-					estudiante1.iniciarSesionUsuario();
+				boolean validacionInicio = 
+						Usuario.iniciarSesionUsuario(email,contraseña);
+				if(validacionInicio) {
+					idMenu = 3;		
 				}
 				else {
-					
+					System.out.println("Kinonis trabajando...");
+					idMenu=99;
 				}
 				break;
+				
 			}
 			case 2: {
 				// MenÃº de Registro
@@ -73,34 +73,62 @@ public class Menu {
 				contraseña = sc.nextLine();
 				System.out.printf("\n-Confirmar contraseÃ±a: ");
 				String contraseña1 = sc.nextLine();
-				//Validar datos
-				
+				// falta verificar las contraseñas
 				System.out.printf("\nDatos Ingresados: "+nombre+apellido+fechaNacimiento+
 						dni+domicilio+email+contraseña+"\n");
-				System.out.printf("\nA) Continuar\nB) Modificar\n");
-				System.out.printf("\nSu respuesta: ");
-				respuesta = sc.nextLine();
-				System.out.printf("\n###############################################\n");
-				idMenu = eleccion(respuesta, idMenu, sc);	
 				
-				//Sujeto a errores, puede fallar.
-				estudiante1 = new Estudiante(nombre,apellido,fechaNacimiento,
+				String validacionRegistro;
+				validacionRegistro = Usuario.registrarUsuario(nombre,apellido,fechaNacimiento,
 						dni,domicilio,email,telefono,contraseña);
 				
-				estudiante1.registrarUsuario();
+				if(validacionRegistro.equals("ok")) {
+					System.out.printf("\nA) Continuar\nB) Modificar\n");
+					System.out.printf("\nSu respuesta: ");
+					System.out.printf("\n###############################################\n");
+					respuesta = sc.nextLine();
+					idMenu = eleccion(respuesta, idMenu, sc);
+				}
+				else {
+					System.out.println("Pa, hiciste algo mal. Intenta nuevamente.");
+					System.out.println(validacionRegistro);
+					idMenu = 2;
+				}
+					
 				break;
 			}
 			case 3:{
-				//Menú de Estudiante
+				//Menu de Estudiante
+				System.out.printf("\n###############################################\n");
+				System.out.println("\n-Menu de Estudiante-\n");
+				System.out.println("A)Inscribirse a Examen.");
+				System.out.println("B)Dar de baja Examen.");
+				System.out.println("C)Historial Academico.");
+				System.out.println("D)Certificado de Alumno Regular (sin firma xd).");
+				System.out.println("E)Cerrar Sesion.");
+				System.out.println("\nSu respuesta: ");
+				respuesta = sc.nextLine();
+				idMenu = eleccion(respuesta, idMenu, sc);
+				System.out.printf("\n###############################################\n");
 				break;
 			}
 			case 4:{
-				//Menú de Administrador
+				//Menu de Administrador
+				System.out.printf("\n###############################################\n");
+				System.out.println("\n-Menu de Administrador-\n");
+				System.out.println("A)Crear Carrera.");
+				System.out.println("B)Crear Materia (-ver leyes de la termodinamica).");
+				System.out.println("C)Crear Examen.");
+				System.out.println("D)Generar Listado de Resultados de Examenes.");
+				System.out.println("E)Cerrar Sesion.");
+				System.out.println("\nSu respuesta: ");
+				respuesta = sc.nextLine();
+				idMenu = eleccion(respuesta, idMenu, sc);
+				System.out.printf("\n###############################################\n");
 				break;
 			}
 			case 99: {
-				//Salir de la aplicaciÃ³n
-				System.out.printf("\nSaliendo... ojalÃ¡ se le enfrÃ­e el cafÃ©.");
+				//Salir de la aplicacion
+				System.out.printf("\nSaliendo... ojala se le enfrie el cafe.");
 				aux = false;
 				break;
 			}
@@ -111,12 +139,20 @@ public class Menu {
 	}
 	
 	// Compara la repsuesta, verifica de quÃ© menÃº viene y realiza el siguiente paso.
+	
+	
+/*  idMenu =
+	0: Inicio
+	1: Iniciar Sesion
+	2: Registrarse
+ 	3: Menu de Estudiante
+ 	4: Menu de Administrador
+*/
 	static int eleccion(String respuesta, int idMenu, Scanner sc) {
-			switch (respuesta) {
+		switch (respuesta.toUpperCase()) {
 			case "A": {
 				if(idMenu == 0) { // Proviene del Inicio
 					idMenu = 1;
-					break;
 				}
 				else if(idMenu == 2) { // Proviene del Registro
 					System.out.printf("\nRegistro realizado con Ã©xito");
@@ -124,7 +160,13 @@ public class Menu {
 					idMenu = 0;
 					System.out.println(idMenu);
 				}
-				return idMenu;
+				else if(idMenu == 3) { // Proviene del Estudiante
+					Estudiante.inscripcionCarrera();					
+				}
+				else if(idMenu == 4) { // Proviene del Administrador
+					Administrador.crearCarrera();
+				}
+				break;
 			}
 			case "B":{
 				if(idMenu == 0) {
@@ -133,17 +175,45 @@ public class Menu {
 				else if(idMenu == 2) {
 					idMenu = 2;
 				}
+				else if(idMenu == 3) {
+					Estudiante.bajaExamen();					
+				}
+				else if(idMenu == 4) {
+					Administrador.crearMateria();
+				}
 				break;
 			}
 			case "C":{
 				if(idMenu == 0) {
 					idMenu = 99;
 				}
+				else if(idMenu == 3) {
+					Estudiante.verHistorialAcademico();					
+				}
+				else if(idMenu == 4) {
+					Administrador.crearMesaExamen();
+				}
 				break;
 				}
+			
+			case "D":{
+				if(idMenu == 3) {
+					Estudiante.generarCertificadoAR();					
+				}
+				else if(idMenu == 4) {
+					Administrador.generarListadoResultadosExamen();
+				}
+				break;
+			}
+			case "E":{
+				if(idMenu == 3 || idMenu == 4) {
+					idMenu = 0;					
+				}
+				break;
+			}
 			default:
-				System.out.printf("OpciÃ³n no vÃ¡lida: '" + respuesta + "'" + 
-						"\nPresione cualquier tecla para continuar... ");
+				System.out.printf("Opcion no valida: '" + respuesta + "'"
+						+ "\nPresione cualquier tecla para continuar... ");
 				sc.nextLine();
 			}
 			return idMenu;
