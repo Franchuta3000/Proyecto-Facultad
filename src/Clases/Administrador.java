@@ -6,13 +6,12 @@ Crear mesas de examen
 Generar listado de resultados de exmenes 
 */
 public class Administrador extends Usuario{
-
+	
 	public Administrador(String nombre, String apellido, String fechaNacimiento, int dni, String domicilio,
-			String email, String contraseña) {
-		super(nombre, apellido, fechaNacimiento, dni, domicilio, email, contraseña);
+			String telefono, String email, String contraseña) {
+		super(nombre, apellido, fechaNacimiento, dni, domicilio, telefono, email, contraseña);
 		// TODO Auto-generated constructor stub
 	}
-	
 	static void crearCarrera() {}
 	static void crearMateria() {}
 	static void crearMesaExamen() {}

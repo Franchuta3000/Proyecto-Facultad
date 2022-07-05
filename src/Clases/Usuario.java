@@ -6,11 +6,13 @@ public class Usuario extends Persona{
 	private String contraseña;
 	protected int idUsuario;
 	
-	static void registrarUsuario() {
-		
+	static String registrarUsuario(String nombre, String apellido, 
+			String fechaNacimiento, int dni, 
+			String domicilio, String telefono, String email, String contraseña) {
+		return "";
 	}
-	static void iniciarSesionUsuario(){
-		
+	static boolean iniciarSesionUsuario(String email, String contraseña){
+		return true;
 	}
 	
 	

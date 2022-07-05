@@ -18,19 +18,19 @@ public class Estudiante extends Usuario{
 				domicilio, numero, email, contraseña);
 		// TODO Auto-generated constructor stub
 	}
-	private void inscripcionCarrera(){
+	static void inscripcionCarrera(){
 		
 	}
-	private void generarCertificadoAR(){
+	static void generarCertificadoAR(){
 		
 	}
-	private void inscripcionExamen(){
+	static void inscripcionExamen(){
 		
 	}
-	private void bajaExamen(){
+	static void bajaExamen(){
 		
 	}	
-	private void verHistorialAcademico(){
+	static void verHistorialAcademico(){
 		
 	}
 }
