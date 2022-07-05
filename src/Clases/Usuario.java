@@ -1,9 +1,20 @@
 package Clases;
+import Utilidades.Conexion;
 
 public class Usuario extends Persona{
 	private String email;
 	private String contraseña;
 	protected int idUsuario;
+	
+	static void registrarUsuario() {
+		
+	}
+	static void iniciarSesionUsuario(){
+		
+	}
+	
+	
+	
 	
 	public String getEmail() {
 		return email;

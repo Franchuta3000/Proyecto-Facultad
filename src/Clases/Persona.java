@@ -60,11 +60,11 @@ public class Persona{
 	}
 
 	public String getNumero() {
-		return numero;
+		return telefono;
 	}
 
 	public void setNumero(String numero) {
-		this.numero = numero;
+		this.telefono = numero;
 	}
 
 	public void mostrar() {

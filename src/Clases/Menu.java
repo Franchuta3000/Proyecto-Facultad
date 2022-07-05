@@ -8,8 +8,12 @@ public class Menu {
 	
 	//Recibe una id para saber quÃ© MenÃº crear (switch).
 	public static void armarMenu(int idMenu, Scanner sc) {
-		String respuesta;
+		String respuesta,nombre =null, apellido=null,fechaNacimiento=null,
+		domicilio = null, email = null,telefono=null,contraseña=null;
 		boolean aux = true;
+		int dni= 0; 
+		Estudiante estudiante1 = new Estudiante(nombre,apellido,fechaNacimiento,
+				dni,domicilio,email,telefono,contraseña);
 		//Bucle para que siempre haya un MenÃº en pantalla.
 		do {
 			System.out.printf("Módulo de Gestión Académica\n");
@@ -30,10 +34,21 @@ public class Menu {
 				// MenÃº de Inicio de sesiÃ³n
 				System.out.printf("\n###############################################\n");
 				System.out.printf("\n-Iniciar Sesión-\n");
+				System.out.printf("\n-E-mail: ");
+				email = sc.nextLine();
+				System.out.printf("\n-Contraseña: ");
+				contraseña = sc.nextLine();
 				System.out.printf("\n###############################################\n");
-				idMenu = 0; // MomentÃ¡neo, para que el bucle no sea infinito.
-				break;
 				
+				idMenu = 0; // MomentÃ¡neo, para que el bucle no sea infinito.
+				
+				if(estudiante1 != null) {
+					estudiante1.iniciarSesionUsuario();
+				}
+				else {
+					
+				}
+				break;
 			}
 			case 2: {
 				// MenÃº de Registro
@@ -41,21 +56,21 @@ public class Menu {
 				System.out.printf("\n-Registrarse-\n");
 				System.out.printf("\nIngresá tus datos: \n");
 				System.out.printf("\n-Nombre: ");
-				String nombre = sc.nextLine();
+				nombre = sc.nextLine();
 				System.out.printf("\n-Apellido: ");
-				String apellido = sc.nextLine();
+				apellido = sc.nextLine();
 				System.out.printf("\n-Fecha de nacimiento: ");
-				String fechaNacimiento = sc.nextLine();
-				System.out.printf("\nD)DNI: ");
-				int dni = Integer.parseInt(sc.nextLine());
+				fechaNacimiento = sc.nextLine();
+				System.out.printf("\n-DNI (Sin puntos ni comas: ");
+				dni = Integer.parseInt(sc.nextLine());
 				System.out.printf("\n-Domicilio: ");
-				String domicilio = sc.nextLine();
+				domicilio = sc.nextLine();
 				System.out.printf("\n-Dirección de email: ");
-				String email = sc.nextLine();
+				email = sc.nextLine();
 				System.out.printf("\n-Número de teléfono: ");
-				String numero = sc.nextLine();
+				telefono = sc.nextLine();
 				System.out.printf("\n-Contraseña: ");
-				String contraseña = sc.nextLine();
+				contraseña = sc.nextLine();
 				System.out.printf("\n-Confirmar contraseÃ±a: ");
 				String contraseña1 = sc.nextLine();
 				//Validar datos
@@ -66,12 +81,23 @@ public class Menu {
 				System.out.printf("\nSu respuesta: ");
 				respuesta = sc.nextLine();
 				System.out.printf("\n###############################################\n");
-				idMenu = eleccion(respuesta, idMenu, sc);
+				idMenu = eleccion(respuesta, idMenu, sc);	
 				
-				Estudiante estudiante1 = new Estudiante(nombre,apellido,fechaNacimiento,
-						dni,domicilio,email,numero,contraseña);
+				//Sujeto a errores, puede fallar.
+				estudiante1 = new Estudiante(nombre,apellido,fechaNacimiento,
+						dni,domicilio,email,telefono,contraseña);
+				
+				estudiante1.registrarUsuario();
 				break;
-			}	
+			}
+			case 3:{
+				//Menú de Estudiante
+				break;
+			}
+			case 4:{
+				//Menú de Administrador
+				break;
+			}
 			case 99: {
 				//Salir de la aplicaciÃ³n
 				System.out.printf("\nSaliendo... ojalÃ¡ se le enfrÃ­e el cafÃ©.");
@@ -132,6 +158,6 @@ public class Menu {
 		this.respuesta = respuesta;
 	}
 	public Menu(int idMenu) {
-	this.respuesta = respuesta;
+	this.idMenu = idMenu;
 	}
 }
