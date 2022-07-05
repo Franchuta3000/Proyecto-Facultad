@@ -1,8 +1,8 @@
 package Clases;
 
 public class Usuario extends Persona{
-	protected String email;
-	protected String contraseña;
+	private String email;
+	private String contraseña;
 	protected int idUsuario;
 	
 	public String getEmail() {
@@ -23,13 +23,15 @@ public class Usuario extends Persona{
 	public void setIdUsuario(int idUsuario) {
 		this.idUsuario = idUsuario;
 	}
-	public Usuario(String nombre, String apellido, String fechaNacimiento, int dni, String domicilio, String string,
-			String email, String contraseña, int idUsuario) {
-		super(nombre, apellido, fechaNacimiento, dni, domicilio, string);
+	public Usuario(String nombre, String apellido, String fechaNacimiento, int dni, 
+			String domicilio, String telefono, String email, String contraseña) {
+		super(nombre, apellido, fechaNacimiento, dni, domicilio, telefono);
+		// TODO Auto-generated constructor stub
 		this.email = email;
 		this.contraseña = contraseña;
-		this.idUsuario = idUsuario;
 	}
+	
+	
 
 	
 	

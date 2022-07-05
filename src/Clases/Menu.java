@@ -40,21 +40,23 @@ public class Menu {
 				System.out.printf("\n###############################################\n");
 				System.out.printf("\n-Registrarse-\n");
 				System.out.printf("\nIngresá tus datos: \n");
-				System.out.printf("\nA)Nombre: ");
+				System.out.printf("\n-Nombre: ");
 				String nombre = sc.nextLine();
-				System.out.printf("\nB)Apellido: ");
+				System.out.printf("\n-Apellido: ");
 				String apellido = sc.nextLine();
-				System.out.printf("\nC)Fecha de nacimiento: ");
+				System.out.printf("\n-Fecha de nacimiento: ");
 				String fechaNacimiento = sc.nextLine();
 				System.out.printf("\nD)DNI: ");
 				int dni = Integer.parseInt(sc.nextLine());
-				System.out.printf("\nE)Domicilio: ");
+				System.out.printf("\n-Domicilio: ");
 				String domicilio = sc.nextLine();
-				System.out.printf("\nF)Dirección de email: ");
+				System.out.printf("\n-Dirección de email: ");
 				String email = sc.nextLine();
-				System.out.printf("\nG)Contraseña: ");
+				System.out.printf("\n-Número de teléfono: ");
+				String numero = sc.nextLine();
+				System.out.printf("\n-Contraseña: ");
 				String contraseña = sc.nextLine();
-				System.out.printf("\nH)Confirmar contraseÃ±a: ");
+				System.out.printf("\n-Confirmar contraseÃ±a: ");
 				String contraseña1 = sc.nextLine();
 				//Validar datos
 				
@@ -67,7 +69,7 @@ public class Menu {
 				idMenu = eleccion(respuesta, idMenu, sc);
 				
 				Estudiante estudiante1 = new Estudiante(nombre,apellido,fechaNacimiento,
-						dni,domicilio,email,contraseña);
+						dni,domicilio,email,numero,contraseña);
 				break;
 			}	
 			case 99: {

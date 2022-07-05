@@ -6,16 +6,17 @@ public class Persona{
 	private String fecha_Nacimiento;
 	private int dni;
 	private String domicilio;
-	private String numero;
+	private String telefono;
 	//protected int idPersona;
 	
-	public Persona(String nombre, String apellido, String fechaNacimiento, int dni, String domicilio, String string) {
+	public Persona(String nombre, String apellido, String fechaNacimiento, 
+			int dni, String domicilio, String telefono) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.fecha_Nacimiento = fechaNacimiento;
 		this.dni = dni;
 		this.domicilio = domicilio;
-		this.numero = numero;
+		this.telefono = telefono;
 	}
 	
 	public String getNombre() {
