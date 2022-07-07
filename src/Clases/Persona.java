@@ -1,5 +1,16 @@
 package Clases;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+import javax.naming.CommunicationException;
+
+import Utilidades.Conexion;
+
 public class Persona{
 	private String nombre;
 	private String apellido;
@@ -70,5 +81,13 @@ public class Persona{
 	public void mostrar() {
 		System.out.println("\n"+nombre+" "+apellido);
 	}
+	public  void crearPersona(Connection conexion) {
+	}
 	
 }
+    
+
+
+
+
+
