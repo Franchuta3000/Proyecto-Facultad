@@ -75,11 +75,10 @@ public class Menu {
 				String contraseña1 = sc.nextLine();
 				// falta verificar las contraseñas
 				System.out.printf("\nDatos Ingresados: "+nombre+apellido+fechaNacimiento+
-						dni+domicilio+email+contraseña+"\n");
+						dni+domicilio+email+contraseña+telefono+"\n");
 				
 				String validacionRegistro;
-				validacionRegistro = Usuario.registrarUsuario(nombre,apellido,fechaNacimiento,
-						dni,domicilio,email,telefono,contraseña);
+				validacionRegistro = Usuario.registrarUsuario(nombre,apellido,fechaNacimiento,dni,domicilio,email,telefono,contraseña);
 				
 				if(validacionRegistro.equals("ok")) {
 					System.out.printf("\nA) Continuar\nB) Modificar\n");
