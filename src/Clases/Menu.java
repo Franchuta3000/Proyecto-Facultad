@@ -9,19 +9,20 @@ public class Menu {
 	//Recibe una id para saber que menu crear (switch).
 	public static void armarMenu(int idMenu, Scanner sc) {
 		String respuesta,nombre, apellido,fechaNacimiento,
-		domicilio, email,telefono,contraseña;
+		domicilio, email,telefono,contraseÃ±a, contraseÃ±a1;
 		boolean aux = true;
 		int dni= 0;
+		Estudiante estudianteLocal;
 		//Bucle para que siempre haya un Menu en pantalla, a menos que se indique (aux = false;).
 		do {
-			System.out.printf("Módulo de Gestión Académica\n");
+			System.out.printf("Mï¿½dulo de Gestiï¿½n Acadï¿½mica\n");
 			System.out.printf("Facultad de Humanidades\n");
 			System.out.printf("\nidMenu = "+idMenu);
 			switch (idMenu) {
 			case 0: {
 				// Menu de Inicio.
 				System.out.printf("\n###############################################\n");
-				System.out.printf("\nA) Iniciar Sesión\nB) Registrarse\nC) Salir\n");
+				System.out.printf("\nA) Iniciar Sesiï¿½n\nB) Registrarse\nC) Salir\n");
 				System.out.printf("\nA continuaciÃ³n, elija una opciÃ³n (A,B,C): ");
 				respuesta = sc.nextLine();
 				System.out.printf("\n###############################################\n");
@@ -31,15 +32,15 @@ public class Menu {
 			case 1: {
 				// MenÃº de Inicio de sesiÃ³n
 				System.out.printf("\n###############################################\n");
-				System.out.printf("\n-Iniciar Sesión-\n");
+				System.out.printf("\n-Iniciar Sesiï¿½n-\n");
 				System.out.printf("\n-E-mail: ");
 				email = sc.nextLine();
-				System.out.printf("\n-Contraseña: ");
-				contraseña = sc.nextLine();
+				System.out.printf("\n-Contraseï¿½a: ");
+				contraseÃ±a = sc.nextLine();
 				System.out.printf("\n###############################################\n");
 				
 				boolean validacionInicio = 
-						Usuario.iniciarSesionUsuario(email,contraseña);
+						Usuario.iniciarSesionUsuario(email,contraseÃ±a);
 				if(validacionInicio) {
 					idMenu = 3;		
 				}
@@ -54,42 +55,49 @@ public class Menu {
 				// MenÃº de Registro
 				System.out.printf("\n###############################################\n");
 				System.out.printf("\n-Registrarse-\n");
-				System.out.printf("\nIngresá tus datos: \n");
+				System.out.printf("\nIngresï¿½ tus datos: \n");
 				System.out.printf("\n-Nombre: ");
 				nombre = sc.nextLine();
 				System.out.printf("\n-Apellido: ");
 				apellido = sc.nextLine();
 				System.out.printf("\n-Fecha de nacimiento: ");
 				fechaNacimiento = sc.nextLine();
-				System.out.printf("\n-DNI (Sin puntos ni comas: ");
+				System.out.printf("\n-DNI (Sin puntos ni comas): ");
 				dni = Integer.parseInt(sc.nextLine());
 				System.out.printf("\n-Domicilio: ");
 				domicilio = sc.nextLine();
-				System.out.printf("\n-Dirección de email: ");
+				System.out.printf("\n-Direcciï¿½n de email: ");
 				email = sc.nextLine();
-				System.out.printf("\n-Número de teléfono: ");
+				System.out.printf("\n-Nï¿½mero de telï¿½fono: ");
 				telefono = sc.nextLine();
-				System.out.printf("\n-Contraseña: ");
-				contraseña = sc.nextLine();
-				System.out.printf("\n-Confirmar contraseÃ±a: ");
-				String contraseña1 = sc.nextLine();
-				// falta verificar las contraseñas
-				System.out.printf("\nDatos Ingresados: "+nombre+apellido+fechaNacimiento+
-						dni+domicilio+email+contraseña+"\n");
+				//Resuelve si las contraseï¿½as coinciden
+				do {				
+					System.out.printf("\n-Contraseï¿½a: ");
+					contraseÃ±a = sc.nextLine();
+					System.out.printf("\n-Confirmar contraseÃ±a: ");
+					contraseÃ±a1 = sc.nextLine();
+					if(!contraseÃ±a.equals(contraseÃ±a1)){
+						System.out.printf("\nLas contraseï¿½as no coinciden, ingrese nuevamente ");
+					}
+				} while (!contraseÃ±a.equals(contraseÃ±a1));
+				
+				System.out.printf("\nDATOS INGRESADOS: "+nombre+apellido+fechaNacimiento+
+						dni+domicilio+email+telefono+contraseÃ±a+contraseÃ±a1+"\n");
 				
 				String validacionRegistro;
-				validacionRegistro = Usuario.registrarUsuario(nombre,apellido,fechaNacimiento,
-						dni,domicilio,email,telefono,contraseña);
-				
+				estudianteLocal = new Estudiante(nombre,apellido,fechaNacimiento,dni,
+						domicilio,email,telefono,contraseÃ±a);
+				// Registra el usuario y devuelve la validacion para continuar.
+				validacionRegistro = estudianteLocal.registrarUsuario();				
 				if(validacionRegistro.equals("ok")) {
 					System.out.printf("\nA) Continuar\nB) Modificar\n");
 					System.out.printf("\nSu respuesta: ");
-					System.out.printf("\n###############################################\n");
 					respuesta = sc.nextLine();
+					System.out.printf("\n###############################################\n");
 					idMenu = eleccion(respuesta, idMenu, sc);
 				}
 				else {
-					System.out.println("Pa, hiciste algo mal. Intenta nuevamente.");
+					System.out.println("("+validacionRegistro+")Pa, hiciste algo mal. Intenta nuevamente.");
 					System.out.println(validacionRegistro);
 					idMenu = 2;
 				}
@@ -116,7 +124,7 @@ public class Menu {
 				System.out.printf("\n###############################################\n");
 				System.out.println("\n-Menu de Administrador-\n");
 				System.out.println("A)Crear Carrera.");
-				System.out.println("B)Crear Materia (-ver leyes de la termodinamica).");
+				System.out.println("B)Crear Materia (-revise las leyes de la termodinamica).");
 				System.out.println("C)Crear Examen.");
 				System.out.println("D)Generar Listado de Resultados de Examenes.");
 				System.out.println("E)Cerrar Sesion.");
@@ -164,7 +172,7 @@ public class Menu {
 					Estudiante.inscripcionCarrera();					
 				}
 				else if(idMenu == 4) { // Proviene del Administrador
-					Administrador.crearCarrera();
+					//@@@@@@@@Carrera.crearCarrera();
 				}
 				break;
 			}
@@ -179,7 +187,7 @@ public class Menu {
 					Estudiante.bajaExamen();					
 				}
 				else if(idMenu == 4) {
-					Administrador.crearMateria();
+					//@@@@@@@@@@@Materia.crearMateria();
 				}
 				break;
 			}
@@ -188,10 +196,10 @@ public class Menu {
 					idMenu = 99;
 				}
 				else if(idMenu == 3) {
-					Estudiante.verHistorialAcademico();					
+					//@@@@@@@@@@@Estudiante.verHistorialAcademico();					
 				}
 				else if(idMenu == 4) {
-					Administrador.crearMesaExamen();
+					//@@@@@@@@@@@Administrador.crearMesaExamen();
 				}
 				break;
 				}
@@ -211,12 +219,22 @@ public class Menu {
 				}
 				break;
 			}
+			case "ADMINBANANA":{
+				idMenu = 4; 
+				break;
+			}
+			case "EXIT":{
+				if(idMenu != 0)
+				idMenu = idMenu-1;
+				break;
+				// else idMenu = 99;
+			}
 			default:
 				System.out.printf("Opcion no valida: '" + respuesta + "'"
 						+ "\nPresione cualquier tecla para continuar... ");
 				sc.nextLine();
 			}
-			return idMenu;
+		return idMenu;
 	}
 	
 	

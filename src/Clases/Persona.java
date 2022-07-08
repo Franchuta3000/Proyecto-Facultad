@@ -1,19 +1,30 @@
 package Clases;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+import javax.naming.CommunicationException;
+
+import Utilidades.Conexion;
+
 public class Persona{
-	private String nombre;
-	private String apellido;
-	private String fecha_Nacimiento;
-	private int dni;
-	private String domicilio;
-	private String telefono;
+	protected String nombre;
+	protected String apellido;
+	protected String fechaNacimiento;
+	protected int dni;
+	protected String domicilio;
+	protected String telefono;
 	//protected int idPersona;
 	
 	public Persona(String nombre, String apellido, String fechaNacimiento, 
 			int dni, String domicilio, String telefono) {
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.fecha_Nacimiento = fechaNacimiento;
+		this.fechaNacimiento = fechaNacimiento;
 		this.dni = dni;
 		this.domicilio = domicilio;
 		this.telefono = telefono;
@@ -36,11 +47,11 @@ public class Persona{
 	}
 
 	public String getFecha_Nacimiento() {
-		return fecha_Nacimiento;
+		return fechaNacimiento;
 	}
 
 	public void setFecha_Nacimiento(String fecha_Nacimiento) {
-		this.fecha_Nacimiento = fecha_Nacimiento;
+		this.fechaNacimiento = fecha_Nacimiento;
 	}
 
 	public int getDni() {
@@ -70,5 +81,10 @@ public class Persona{
 	public void mostrar() {
 		System.out.println("\n"+nombre+" "+apellido);
 	}
-	
 }
+    
+
+
+
+
+
