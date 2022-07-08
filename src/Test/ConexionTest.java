@@ -12,7 +12,7 @@ import Clases.Persona;
 public class ConexionTest {
 	public static void main(String[] args)  {
 		Conexion cnn = new Conexion("root","Ehdemian2010.$","base");
-		Persona persona = new Persona("Fabricio", "Uzumaki","13/09/1993",44444755,"Avenida Siempre viva 123", "1");
+		
 		try {
 			System.out.println(cnn.conectar());
 		} catch (CommunicationException e) {

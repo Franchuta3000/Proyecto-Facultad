@@ -2,6 +2,8 @@ package Clases;
 
 import java.util.Scanner;
 
+import javax.naming.CommunicationException;
+
 /*
 Inscripcion a carrera
 Inscripcion a examen
@@ -13,16 +15,15 @@ public class Estudiante extends Usuario{
 	
 	public Estudiante(String nombre, String apellido, String fechaNacimiento, 
 			int dni, String domicilio, String numero,
-			String email, String contraseÃ±a) {
+			String email, String contraseña) {
 		super(nombre, apellido, fechaNacimiento, dni, 
-				domicilio, numero, email, contraseÃ±a);
-		// TODO Auto-generated constructor stub
+				domicilio, numero, email, contraseña);
 	}
-	static void inscripcionCarrera(){
+	static void inscripcionCarrera() throws CommunicationException{
 		Scanner sc = new Scanner(System.in);
 		System.out.printf("\n###############################################\n");
 		System.out.printf("\n-Carreras-\n");
-		//Carrera.verCarreras();
+		Carrera.verCarreras();
 		System.out.printf("");
 		System.out.printf("\nIngrese el nombre de la carrera a Inscribirse: ");
 		String respuesta = sc.nextLine();
@@ -30,11 +31,11 @@ public class Estudiante extends Usuario{
 				"A) SI // B) NO");
 		respuesta = sc.nextLine();
 	}
-	static void inscripcionMateria(){
+	static void inscripcionMateria() throws Exception{
 		Scanner sc = new Scanner(System.in);
 		System.out.printf("\n###############################################\n");
 		System.out.printf("\n-Materias-\n");
-		//Materia.verMaterias();
+		Materia.verMateria();
 		System.out.printf("");
 		System.out.printf("\nIngrese el nombre de la materia a Inscribirse: ");
 		String respuesta = sc.nextLine();

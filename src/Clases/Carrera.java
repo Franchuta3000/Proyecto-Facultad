@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import javax.naming.CommunicationException;
+
 public class Carrera {
 	private String nombreCarrera;
 	private String duracion;
@@ -39,28 +41,37 @@ public class Carrera {
 	}
 	
 	//
-	public void verCarreras(Connection conexion) {
+	public static void verCarreras() throws CommunicationException {
 		Scanner sc= new Scanner (System.in);
 		Statement statement = null;
 		String sql;
 		ResultSet rs;
 		PreparedStatement stmt;
+		Conexion cnn;
+		
+		cnn = new Conexion("root","Ehdemian2010.$","base");
+		System.out.println(cnn.conectar());
+		
+		Connection conexion=cnn.getConnection();
 		try {
 			statement = conexion.createStatement();
 			sql = "SELECT * "
 				+ "FROM carrera "
 				+ "order by idCarrera;";
 			rs = statement.executeQuery(sql);
-			System.out.println("Seleccione Carrera ");
+			System.out.println("Carreras disponibles ");
 			while(rs.next()) 
 			{
+			
 			int idCarrera = rs.getInt("idCarrera");
 			String nombreCarrera = rs.getString("NombreCarrera");
-			String duracion = rs.getString("Duraciï¿½n");
-			String tituloOtorgado = rs.getString("Tï¿½tuloOtorgado");
+			String duracion = rs.getString("Duración");
+			String tituloOtorgado = rs.getString("TítuloOtorgado");
 			System.out.println(idCarrera + " - " + nombreCarrera + " " + duracion + " " + tituloOtorgado);
-			int carrera= sc.nextInt();
-			}		
+			
+			}
+			System.out.println("Presione una tecla para continuar:");
+			int carrera= sc.nextInt();  
 		} catch (Exception e){
         e.printStackTrace();
 		}
