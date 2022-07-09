@@ -51,9 +51,7 @@ public class Menu {
 					System.out.println("ERROR!!! revise contrase�a y/o correo...");
 					sc.nextLine();
 					idMenu=1;
-				}
-				//Estudiante.inscripcionCarrera(validarInicio.idEstudiante);
-				Estudiante.inscripcionExamen(validarInicio.idEstudiante);
+				}			
 				break;
 				
 			}
@@ -76,11 +74,11 @@ public class Menu {
 				telefono = sc.nextLine();
 				System.out.printf("\n-Direccion de email: ");
 				email = sc.nextLine();
-				//Resuelve si las contrase�as coinciden
+				//Resuelve si las contrasenas coinciden
 				do {				
 					System.out.printf("\n-Contrasena: ");
 					contrasena = sc.nextLine();
-					System.out.printf("\n-Confirmar contrase�a: ");
+					System.out.printf("\n-Confirmar contrasena: ");
 					contrasena1 = sc.nextLine();
 					if(!contrasena.equals(contrasena1)){
 						System.out.printf("\nLas contrasenas no coinciden, ingrese nuevamente ");
@@ -101,7 +99,7 @@ public class Menu {
 				validacionRegistro = estudianteLocal.registrarUsuario();				
 				if(validacionRegistro.equals("ok")) {
 				
-					idMenu = eleccion(respuesta, idMenu, sc);
+					idMenu = eleccion(respuesta, idMenu, sc );
 				}
 				else {
 					System.out.println("("+validacionRegistro+")Pa, hiciste algo mal. Intenta nuevamente.");
@@ -111,22 +109,19 @@ public class Menu {
 					
 				break;
 			}
-			case 3:{
-				
-				
+			case 3:{								
 				//Menu de Estudiante
 				System.out.printf("\n###############################################\n");
                 System.out.println("\n-Menu de Estudiante-\n");
-                System.out.println("A)Inscribirse a Examen.");
-                System.out.println("B)Inscribirse a Materia.");
+                System.out.println("A)Inscribirse a Carrera.");
+                System.out.println("B)Inscribirse a Examen.");
                 System.out.println("C)Dar de baja Examen.");
                 System.out.println("D)Historial Academico.");
                 System.out.println("E)Certificado de Alumno Regular (sin firma xd).");
-                System.out.println("F)Inscribirse a Carrera.");
-                System.out.println("G)Cerrar Sesion.");
+                System.out.println("F)Cerrar Sesion.");
                 System.out.println("\nSu respuesta: ");
 				respuesta = sc.nextLine();
-				idMenu = eleccion(respuesta, idMenu, sc);
+				idMenu = eleccion(respuesta, idMenu, sc,validarInicio.idEstudiante);
 				System.out.printf("\n###############################################\n");
 				break;
 			}
@@ -179,9 +174,6 @@ public class Menu {
 					idMenu = 0;
 					System.out.println(idMenu);
 				}
-				else if(idMenu == 3) { // Proviene del Estudiante
-				//Estudiante.inscripcionCarrera();					
-				}
 				else if(idMenu == 4) { // Proviene del Administrador
 					Administrador.crearCarrera();
 				}
@@ -203,9 +195,6 @@ public class Menu {
 				if(idMenu == 0) {
 					idMenu = 99;
 				}
-				else if(idMenu == 3) {
-					Estudiante.bajaExamen();					
-				}
 				else if(idMenu == 4) {
 				Administrador.crearExamen();
 				}
@@ -213,10 +202,7 @@ public class Menu {
 				}
 			
 			case "D":{
-				if(idMenu == 3) {
-					Estudiante.verHistorialAcademico();					
-				}
-				else if(idMenu == 4) {
+				if(idMenu == 4) {
 					Administrador.generarListadoResultadosExamen();
 				}
 				break;
@@ -224,21 +210,6 @@ public class Menu {
 			case "E":{
 				if(idMenu == 4) {
 					idMenu = 0;					
-				}
-				else if(idMenu == 3) {
-					Estudiante.generarCertificadoAR();
-				}
-				break;
-			}
-			case "F":{
-				if(idMenu == 3) {
-			//	Estudiante.inscripcionCarrera();
-				}
-				break;
-			}
-			case "G":{
-				if(idMenu == 3) {
-				idMenu = 0;
 				}
 				break;
 			}
@@ -259,7 +230,50 @@ public class Menu {
 			}
 		return idMenu;
 	}
-	
+
+//	SOBRECARGA DEL METODO para comunicar la variable del Usuario que inicio sesion.
+	static int eleccion(String respuesta, int idMenu, Scanner sc, int idEstudiante) throws CommunicationException {
+		switch(respuesta.toUpperCase()) {
+		case "A":{
+			if(idMenu == 3) {
+				Estudiante.inscripcionCarrera(idEstudiante);
+			}
+			break;
+		}
+		case "B":{
+			if(idMenu == 3) {
+				Estudiante.inscripcionExamen(idEstudiante);
+			}
+			break;
+		}
+		case "C":{
+			if(idMenu == 3) {
+				Estudiante.bajaExamen(idEstudiante);
+			}
+			break;
+		}
+		case "D":{
+			if(idMenu == 3) {
+				Estudiante.verHistorialAcademico();
+			}
+			break;
+		}
+		case "E":{
+			if(idMenu == 3) {
+				Estudiante.generarCertificadoAR();
+			}
+			break;
+		}
+		case "F":{
+			if(idMenu == 3) {
+				idMenu = 99;
+			}
+			break;
+		}
+		
+	}
+	return idMenu;
+}
 	
 	//Getter, Setter y Constructor.
 	public String getRespuesta() {

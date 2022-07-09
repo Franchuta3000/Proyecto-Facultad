@@ -84,8 +84,6 @@ public class Materia extends Carrera{
 				System.out.println(idMateria + " - " + nombreMateria + " " + horasCatedra + " " + nombreProfesor);
 				
 			}
-			System.out.println("Presione una tecla para continuar:");
-			int carrera= sc.nextInt();  
 		} catch (Exception e){
 			e.printStackTrace();
 		}

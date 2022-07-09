@@ -34,7 +34,7 @@ public class Administrador extends Usuario{
 		System.out.printf("\n-Nombre de la carrera: ");
 		String nombreCarrera = sc.nextLine();
 		System.out.printf("\n-Duracion de la carrera (use n�meros y letras. "
-				+ "Por ejemplo: 5 a�os y medio): ");
+				+ "Por ejemplo: 5 anos y medio): ");
 		String	duracion = sc.nextLine();
 		System.out.printf("\n-Titulo otorgado: ");
 		String	tituloOtorgado = sc.nextLine();
@@ -200,6 +200,8 @@ public class Administrador extends Usuario{
 		}
 	}
 	
-	static void generarListadoResultadosExamen() {}
+	static void generarListadoResultadosExamen() {
+		
+	}
 	
 }

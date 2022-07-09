@@ -58,9 +58,7 @@ public class Estudiante extends Usuario{
 			PreparedStatement stmt;
 			Conexion cnn;
 			
-			cnn = new Conexion("root","Ehdemian2010.$","base");
-			System.out.println(cnn.conectar());
-			
+			cnn = new Conexion("root","Ehdemian2010.$","base");			
 			Connection conexion=cnn.getConnection();
 			
 			try {
@@ -72,7 +70,7 @@ public class Estudiante extends Usuario{
 				while(rs.next()) {
 					 control = rs.getInt("control");
 					}		
-				System.out.println(idCarrera+"esto es id de la carrera , "+idEstudiante+"esto es la id del est");
+	
 							
 				stmt = conexion.prepareStatement("INSERT INTO inscripcionestudiante VALUES (?,?,?)");
 				stmt.setInt(1,control+1);
@@ -93,19 +91,7 @@ public class Estudiante extends Usuario{
 	        }
 		}
 	}
-/*	static void inscripcionMateria() throws Exception{
-		Scanner sc = new Scanner(System.in);
-		System.out.printf("\n###############################################\n");
-		System.out.printf("\n-Materias-\n");
-		Materia.verMateria();
-		System.out.printf("");
-		System.out.printf("\nIngrese la Materia a inscribirse (el numero): ");
-		String respuesta = sc.nextLine();
-		System.out.printf("\nDesea inscribirse en la materia"+respuesta+"?/n"+
-				"A) SI // B) NO");
-		respuesta = sc.nextLine();
-	}
-*/
+
 	static void inscripcionExamen(int idEstudiante) throws CommunicationException{
 		Scanner sc = new Scanner(System.in);
 		String nombreCarrera = "";
@@ -134,9 +120,7 @@ public class Estudiante extends Usuario{
 			PreparedStatement stmt;
 			Conexion cnn;
 			
-			cnn = new Conexion("root","Ehdemian2010.$","base");
-			System.out.println(cnn.conectar());
-			
+			cnn = new Conexion("root","Ehdemian2010.$","base");		
 			Connection conexion=cnn.getConnection();
 			
 			try {
@@ -171,70 +155,66 @@ public class Estudiante extends Usuario{
 	
 	static void bajaExamen(int idEstudiante) throws CommunicationException{
 		Scanner sc = new Scanner(System.in);
+		String respuesta;
+		int idExamen;
+		int control = 0;
 		Statement statement = null;
 		String sql;
 		ResultSet rs;
 		PreparedStatement stmt;
 		Conexion cnn;
+		System.out.printf("\n###############################################\n");
+		System.out.printf("\n-Examenes-\n");
+		Examen.verExamen();
+		System.out.printf("");
+		System.out.printf("\nIngrese el examen a darse de baja (el numero): ");
+		idExamen = sc.nextInt();		
+		//Con la id acceder a la tabla de carreras. Luego, guardar el nombre de la Carrera. 
+		// ------------------------------>				
+		System.out.printf("\nDesea darse de baja en el examen"+"?\n"+
+				"A) SI // B) NO\n ");
+		respuesta = sc.next();
+		respuesta.toUpperCase();
+		if(respuesta.equals("A")){		
 		
 		cnn = new Conexion("root","Ehdemian2010.$","base");
 		System.out.println(cnn.conectar());
 		
 		Connection conexion=cnn.getConnection();
 			
-			try {
-				statement = conexion.createStatement();
-				sql = "SELECT idcliente,Nombre,Apellido,Documento "
-						+ "FROM cliente AS c INNER JOIN persona AS per ON c.idpersona = per.idpersona "
-						+ "order by idcliente;";
-				rs = statement.executeQuery(sql);
-				System.out.println("Seleccione el examen a darse de baja");
-				while(rs.next()) 
-				{
-					int idcliente = rs.getInt("idcliente");
-					String apellido = rs.getString("Apellido");
-					String nombre = rs.getString("Nombre");
-					String documento = rs.getString("Documento");
-					System.out.println(idcliente + " - " + apellido + " " + nombre + " " + documento);
-				}
-				System.out.println("Cancelar seleccione 0");
-				int cliente  = sc.nextInt();
-				
-				if(cliente!=0) {
+			try {			
 					statement = conexion.createStatement();
-					sql = "SELECT idpersona FROM cliente WHERE idcliente = "+cliente+";";
-					rs = statement.executeQuery(sql);
-					int idpersona = 0;
+					sql = "SELECT * FROM estudiante_examen;";
+					rs = statement.executeQuery(sql);					
 					while(rs.next()) 
 					{
-						idpersona = rs.getInt("idpersona");
-					}
-					
-					stmt = conexion.prepareStatement("DELETE FROM cliente WHERE idcliente = ?;");
-		        	stmt.setInt(1, cliente);
-		        	
-		        	int response = stmt.executeUpdate();
-		        	if(response>0) 
-		        	{
-		        		System.out.println("se elimino cliente correctamente");
-		        	}
-					stmt = conexion.prepareStatement("DELETE FROM persona WHERE idPersona = ?");
-		        	stmt.setInt(1, idpersona);
-		        	
-		        	response = stmt.executeUpdate();
-		        	if(response>0) 
-		        	{
-		        		System.out.println("se elimino persona correctamente");
-		        	}
+						control = rs.getInt("control");
+						int  estudianteSQL= rs.getInt("Estudiante_idEstudiante");
+						int  examenSQL= rs.getInt("mesa_idMesa");
+						if(idExamen==examenSQL&&idEstudiante==estudianteSQL) {
+							stmt = conexion.prepareStatement("DELETE FROM estudiante_examen WHERE control = ?;");
+				        	stmt.setInt(1, control);
+				        	
+				        	int response = stmt.executeUpdate();
+				        	if(response>0) 
+				        	{
+				        		System.out.println("se dio de baja correctamente");
+				        	}
+				        	break;
+						}					
+					}															
 				 }
-			}catch (SQLException sqle){
+			catch (SQLException sqle){
 	            System.out.println("SQLState: "+ sqle.getSQLState());
 	            System.out.println("SQLErrorCode: " + sqle.getErrorCode());
 	            sqle.printStackTrace();
 	        }catch (Exception e){
-	            e.printStackTrace();
-	        }
-		}
+	            e.printStackTrace();}}
+	}
+	        
+		
+		
+	
 		
 	
 	static void verHistorialAcademico(){

@@ -21,7 +21,7 @@ Carrera carrera = new Carrera(null, null, null);
 Administrador administrador = new Administrador(null,null,null,0,null,null,null,null);
 Examen examen = new Examen(null, null, null);
 //administrador.crearCarrera();
-examen.verExamen();
+
 //carrera.verCarreras(cnn.getConnection());
 	}
 
