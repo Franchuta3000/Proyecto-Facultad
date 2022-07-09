@@ -18,14 +18,16 @@ public class Usuario extends Persona{
 	protected int idUsuario;
 	
 	
-	 static Estudiante iniciarSesionUsuario(String email, String contrasena) throws Throwable{
+	 static ValidarInicio iniciarSesionUsuario(String email, String contrasena) throws Throwable{
 		Statement statement = null;
-		Estudiante estudiante = null;
+		
+		
 		String sql;
 		ResultSet rs;
 		PreparedStatement stmt;
 		Conexion cnn;
 		boolean validar = false;
+		int idpersona = 0;
 		cnn = new Conexion("root","Ehdemian2010.$","base");
 		System.out.println(cnn.conectar());
 		
@@ -36,7 +38,7 @@ public class Usuario extends Persona{
 			statement = conexion.createStatement();
 			sql = "SELECT * FROM usuario order by idUsuario;";
 			rs = statement.executeQuery(sql);
-			int idpersona = 0;
+			
 			while(rs.next()) {
 				idpersona = rs.getInt("idUsuario");
 				System.out.println(idpersona+rs.getString("Correo")+rs.getString("Contraseña"));
@@ -49,12 +51,11 @@ public class Usuario extends Persona{
 					
 				}			
 		
-		estudiante.setIdUsuario(idpersona);
-		estudiante.setValidarInicio(validar);
 		}catch (Exception e) {
 			// TODO: handle exception
 		}
-		return estudiante;
+		ValidarInicio validarInicio= new ValidarInicio(validar, idpersona);
+		return validarInicio;
 		
 	}
 	

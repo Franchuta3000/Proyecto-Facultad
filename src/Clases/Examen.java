@@ -32,5 +32,39 @@ public class Examen extends Materia{
 		
 		return idMateria;	
 	}
+	public static void verExamen() throws CommunicationException {
+		Scanner sc= new Scanner (System.in);
+		Statement statement = null;
+		String sql;
+		ResultSet rs;
+		PreparedStatement stmt;
+		Conexion cnn;
+		
+		cnn = new Conexion("root","Ehdemian2010.$","base");
+		System.out.println(cnn.conectar());
+		
+		Connection conexion=cnn.getConnection();
+		try {
+			statement = conexion.createStatement();
+			sql = "SELECT * "
+				+ "FROM mesa_de_examens "
+				+ "order by idMesa_De_Examens;";
+			rs = statement.executeQuery(sql);
+			System.out.println("examenes disponibles ");
+			while(rs.next()) 
+			{
+			int idExamen = rs.getInt("idMesa_De_Examens");
+			int materiaIdMateria= rs.getInt("Materias_idMaterias");
+			String examen = rs.getString("Examen");
+			String fechaMesa = rs.getString("fecha_Mesa");
+			String fechainicio = rs.getString("fecha_Inicio");
+			String fechafinal = rs.getString("fecha_Final");
+			
+			System.out.println(idExamen + ") " +" " + examen + " " + fechaMesa);
+			}	
+		} catch (Exception e){
+        e.printStackTrace();
+		}
+	}	
 }
 

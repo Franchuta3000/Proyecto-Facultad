@@ -14,7 +14,8 @@ public class Menu {
 		domicilio, email,telefono,contrasena, contrasena1;
 		boolean aux = true;
 		int dni= 0;
-		Estudiante estudianteLocal = null;
+		Estudiante  estudianteLocal = null;
+		ValidarInicio validarInicio = null;
 		//Bucle para que siempre haya un Menu en pantalla, a menos que se indique (aux = false;).
 		do {
 			System.out.printf("Modulo de Gestion Academica\n");
@@ -42,8 +43,8 @@ public class Menu {
 				System.out.printf("\n###############################################\n");
 				
 			
-						estudianteLocal=Usuario.iniciarSesionUsuario(email,contrasena);
-				if(estudianteLocal.validarInicio) {
+						validarInicio=Usuario.iniciarSesionUsuario(email,contrasena);
+				if(validarInicio.validarInicio) {
 					idMenu = 3;		
 				}
 				else {
@@ -51,7 +52,8 @@ public class Menu {
 					sc.nextLine();
 					idMenu=1;
 				}
-				estudianteLocal.inscripcionCarrera();
+				//Estudiante.inscripcionCarrera(validarInicio.idEstudiante);
+				Estudiante.inscripcionExamen(validarInicio.idEstudiante);
 				break;
 				
 			}
@@ -110,8 +112,8 @@ public class Menu {
 				break;
 			}
 			case 3:{
-				estudianteLocal.inscripcionCarrera();
-				//Estudiante.inscripcionMateria();
+				
+				
 				//Menu de Estudiante
 				System.out.printf("\n###############################################\n");
                 System.out.println("\n-Menu de Estudiante-\n");
@@ -178,7 +180,7 @@ public class Menu {
 					System.out.println(idMenu);
 				}
 				else if(idMenu == 3) { // Proviene del Estudiante
-					Estudiante.inscripcionExamen();;					
+				//Estudiante.inscripcionCarrera();					
 				}
 				else if(idMenu == 4) { // Proviene del Administrador
 					Administrador.crearCarrera();

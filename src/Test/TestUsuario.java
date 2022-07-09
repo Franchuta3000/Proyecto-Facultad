@@ -3,6 +3,7 @@ import java.sql.*;
 
 import javax.naming.CommunicationException;
 
+import Clases.Examen;
 import Clases.Usuario;
 import Clases.Persona;
 import Utilidades.Conexion;
@@ -18,9 +19,9 @@ Usuario usuario = new Usuario(null, null, null, 0, null, null, null, null);
 Persona persona = new Persona(null,null,null,0,null,null);	
 Carrera carrera = new Carrera(null, null, null);
 Administrador administrador = new Administrador(null,null,null,0,null,null,null,null);
-
+Examen examen = new Examen(null, null, null);
 //administrador.crearCarrera();
-carrera.verCarreras();
+examen.verExamen();
 //carrera.verCarreras(cnn.getConnection());
 	}
 
