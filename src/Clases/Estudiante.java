@@ -15,34 +15,52 @@ public class Estudiante extends Usuario{
 	
 	public Estudiante(String nombre, String apellido, String fechaNacimiento, 
 			int dni, String domicilio, String numero,
-			String email, String contraseÒa) {
+			String email, String contrase√±a) {
 		super(nombre, apellido, fechaNacimiento, dni, 
-				domicilio, numero, email, contraseÒa);
+				domicilio, numero, email, contrase√±a);
 	}
 	static void inscripcionCarrera() throws CommunicationException{
 		Scanner sc = new Scanner(System.in);
+		String nombreCarrera = "MWAH?";
+		String respuesta;
+		int idCarrera; 
+		
 		System.out.printf("\n###############################################\n");
 		System.out.printf("\n-Carreras-\n");
 		Carrera.verCarreras();
 		System.out.printf("");
-		System.out.printf("\nIngrese el nombre de la carrera a Inscribirse: ");
-		String respuesta = sc.nextLine();
-		System.out.printf("\nDesea inscribirse en la carrera"+respuesta+"?/n"+
+		System.out.printf("\nIngrese la Carrera a inscribirse (el numero): ");
+		idCarrera = sc.nextInt();		
+		//Con la id acceder a la tabla de carreras. Luego, guardar el nombre de la Carrera. 
+		// ------------------------------>
+		
+		System.out.printf("\nDesea inscribirse en la carrera"+nombreCarrera+"?/n"+
 				"A) SI // B) NO");
 		respuesta = sc.nextLine();
+		respuesta.toUpperCase();
+		if(respuesta.equals("A")){			
+			// Aca se debe asociar la idCarrera con Estudiante --------->
+		}
+		else if(respuesta.equals("B")) {
+			
+		}
+		else {
+			System.out.printf("\nRespuesta no v√°lida. Lo sentimos.");
+		}			
 	}
-	static void inscripcionMateria() throws Exception{
+/*	static void inscripcionMateria() throws Exception{
 		Scanner sc = new Scanner(System.in);
 		System.out.printf("\n###############################################\n");
 		System.out.printf("\n-Materias-\n");
 		Materia.verMateria();
 		System.out.printf("");
-		System.out.printf("\nIngrese el nombre de la materia a Inscribirse: ");
+		System.out.printf("\nIngrese la Materia a inscribirse (el numero): ");
 		String respuesta = sc.nextLine();
 		System.out.printf("\nDesea inscribirse en la materia"+respuesta+"?/n"+
 				"A) SI // B) NO");
 		respuesta = sc.nextLine();
 	}
+*/
 	static void inscripcionExamen(){
 		
 	}

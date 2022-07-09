@@ -18,8 +18,8 @@ Generar listado de resultados de exmenes
 */
 public class Administrador extends Usuario{
 	public Administrador(String nombre, String apellido, String fechaNacimiento, int dni, String domicilio,
-			String telefono, String email, String contraseña) {
-		super(nombre, apellido, fechaNacimiento, dni, domicilio, telefono, email, contraseña);
+			String telefono, String email, String contraseÃ±a) {
+		super(nombre, apellido, fechaNacimiento, dni, domicilio, telefono, email, contraseÃ±a);
 		
 	}
 
@@ -34,7 +34,7 @@ public class Administrador extends Usuario{
 		System.out.printf("\n-Nombre de la carrera: ");
 		String nombreCarrera = sc.nextLine();
 		System.out.printf("\n-Duracion de la carrera (use nï¿½meros y letras. "
-				+ "Por ejemplo: 5 años y medio): ");
+				+ "Por ejemplo: 5 aï¿½os y medio): ");
 		String	duracion = sc.nextLine();
 		System.out.printf("\n-Titulo otorgado: ");
 		String	tituloOtorgado = sc.nextLine();
@@ -84,6 +84,8 @@ public class Administrador extends Usuario{
 		}
 	}
 	static void crearMateria() throws Exception {
+		int idCarrera = Materia.asociarConCarrera();
+		
 		Scanner sc = new Scanner(System.in);
 		System.out.printf("\n###############################################\n");
 		System.out.printf("\n-Creacion de Materia-");
@@ -102,6 +104,7 @@ public class Administrador extends Usuario{
 		ResultSet rs;
 		PreparedStatement stmt;
 		Conexion cnn;
+		int idMateria = 0;
 		
 		cnn = new Conexion("root","Ehdemian2010.$","base");
 		System.out.println(cnn.conectar());
@@ -112,17 +115,18 @@ public class Administrador extends Usuario{
 			statement = conexion.createStatement();
 			sql = "SELECT idMateria FROM materias order by idMateria DESC LIMIT 1;";
 			rs = statement.executeQuery(sql);
-			int idMateria = 0;
+			
 			while(rs.next()) 
 			{
 				idMateria = rs.getInt("idMateria");
 			}
 			
-			stmt = conexion.prepareStatement("INSERT INTO materias VALUES (?,?,?,?)");
+			stmt = conexion.prepareStatement("INSERT INTO materias VALUES (?,?,?,?,?)");
         	stmt.setInt(1,idMateria+1);
         	stmt.setString(2,nombreMateria);
         	stmt.setString(3,horasCatedra);
         	stmt.setString(4,nombreProfesor);
+        	stmt.setInt(5,idCarrera+1);
         	
         	
         	int response = stmt.executeUpdate();
@@ -138,8 +142,64 @@ public class Administrador extends Usuario{
 		}catch (Exception e){
         e.printStackTrace();
 		}
+
 	}
-	static void crearMesaExamen() {}
+	public static void crearExamen() throws Exception {
+		
+		int idMateria = Examen.asociarConMateria();
+		
+		Scanner	sc= new Scanner(System.in);
+		
+		System.out.println("Ingrese nombre del examen: ");
+		String examen= sc.next();
+		System.out.println("Ingrese fecha del examen: ");
+		String fecha= sc.next();
+		System.out.println("Ingrese inicio del examen: ");
+		String inicio= sc.next();
+		System.out.println("Ingrese final del examen: ");
+		String finalExamen= sc.next();
+			Statement statement = null;
+			String sql;
+			ResultSet rs;
+			PreparedStatement stmt;
+			Conexion cnn;
+			int idExamen = 0;
+			
+			cnn = new Conexion("root","Ehdemian2010.$","base");
+			System.out.println(cnn.conectar());
+			
+			Connection conexion=cnn.getConnection();
+			
+			try {
+				//ULTIMO ID REGISTRADO EN LA TABLA
+				statement = conexion.createStatement();
+				sql = "SELECT idMesa_De_Examens FROM mesa_de_examens order by idMesa_De_Examens DESC LIMIT 1;"
+						+"SELECT idMateria FROM materias order by idMateria DESC LIMIT 1;";
+				rs = statement.executeQuery(sql);
+
+				while(rs.next()) {
+					idExamen = rs.getInt("idMesa_De_Examens");
+					idMateria = rs.getInt("idMateria");
+					}			
+				stmt = conexion.prepareStatement("INSERT INTO mesa_de_examens VALUES (?,?,?,?,?,?)");
+	        	stmt.setInt(1,idExamen+1);
+	        	stmt.setInt(2,idMateria+1);
+	        	stmt.setString(3,examen);
+	        	stmt.setString(4,fecha);
+	        	stmt.setString(5,inicio);
+	        	stmt.setString(6,finalExamen);
+	        	
+	        	
+	        	int response = stmt.executeUpdate();
+	        	if(response>0) {
+	        		System.out.println("se inserto Examen correctamente");
+	        	}
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
 	static void generarListadoResultadosExamen() {}
 	
 }

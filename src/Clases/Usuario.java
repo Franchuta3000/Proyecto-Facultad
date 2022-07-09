@@ -14,11 +14,11 @@ import Utilidades.Conexion;
 
 public class Usuario extends Persona{
 	private String email;
-	private String contraseña;
+	private String contraseÃ±a;
 	protected int idUsuario;
 	
 	
-	 static boolean iniciarSesionUsuario(String email, String contraseña) throws Throwable{
+	 static boolean iniciarSesionUsuario(String email, String contraseÃ±a) throws Throwable{
 		Statement statement = null;
 		String sql;
 		ResultSet rs;
@@ -38,8 +38,8 @@ public class Usuario extends Persona{
 			int idpersona = 0;
 			while(rs.next()) {
 				idpersona = rs.getInt("idUsuario");
-				System.out.println(idpersona+rs.getString("Correo")+rs.getString("Contraseña"));
-				if(email.equals(rs.getString("Correo"))&& contraseña.equals(rs.getString("Contraseña") )) {
+				System.out.println(idpersona+rs.getString("Correo")+rs.getString("Contraseï¿½a"));
+				if(email.equals(rs.getString("Correo"))&& contraseÃ±a.equals(rs.getString("Contraseï¿½a") )) {
 					validar=true;
 					break;
 				}else {
@@ -62,11 +62,11 @@ public class Usuario extends Persona{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getContraseña() {
-		return contraseña;
+	public String getContraseÃ±a() {
+		return contraseÃ±a;
 	}
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setContraseÃ±a(String contraseÃ±a) {
+		this.contraseÃ±a = contraseÃ±a;
 	}
 	public int getIdUsuario() {
 		return idUsuario;
@@ -75,11 +75,11 @@ public class Usuario extends Persona{
 		this.idUsuario = idUsuario;
 	}
 	public Usuario(String nombre, String apellido, String fechaNacimiento, int dni, 
-			String domicilio, String telefono, String email, String contraseña) {
+			String domicilio, String telefono, String email, String contraseÃ±a) {
 		super(nombre, apellido, fechaNacimiento, dni, domicilio, telefono);
 		// TODO Auto-generated constructor stub
 		this.email = email;
-		this.contraseña = contraseña;
+		this.contraseÃ±a = contraseÃ±a;
 	}	
 	
 	public String registrarUsuario() throws CommunicationException 
@@ -132,7 +132,7 @@ public class Usuario extends Persona{
         	stmt.setInt(1,idUsuario+1);
         	stmt.setInt(2,idpersona+1);
         	stmt.setString(3,email);
-        	stmt.setString(4,contraseña);
+        	stmt.setString(4,contraseÃ±a);
         	
         	response = stmt.executeUpdate();
         	if(response>0){

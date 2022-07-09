@@ -11,7 +11,7 @@ public class Menu {
 	//Recibe una id para saber que menu crear (switch).
 	public static void armarMenu(int idMenu, Scanner sc) throws Throwable {
 		String respuesta,nombre, apellido,fechaNacimiento,
-		domicilio, email,telefono,contraseña, contraseña1;
+		domicilio, email,telefono,contraseÃ±a, contraseÃ±a1;
 		boolean aux = true;
 		int dni= 0;
 		Estudiante estudianteLocal;
@@ -38,16 +38,16 @@ public class Menu {
 				System.out.printf("\n-E-mail: ");
 				email = sc.nextLine();
 				System.out.printf("\n-Contrasenna: ");
-				contraseña = sc.nextLine();
+				contraseÃ±a = sc.nextLine();
 				System.out.printf("\n###############################################\n");
 				
 				boolean validacionInicio = 
-						Usuario.iniciarSesionUsuario(email,contraseña);
+						Usuario.iniciarSesionUsuario(email,contraseÃ±a);
 				if(validacionInicio) {
 					idMenu = 3;		
 				}
 				else {
-					System.out.println("ERROR!!! revise contraseña y/o correo...");
+					System.out.println("ERROR!!! revise contraseï¿½a y/o correo...");
 					sc.nextLine();
 					idMenu=2;
 				}
@@ -75,24 +75,25 @@ public class Menu {
 				email = sc.nextLine();
 				//Resuelve si las contraseï¿½as coinciden
 				do {				
-					System.out.printf("\n-Contraseña: ");
-					contraseña = sc.nextLine();
-					System.out.printf("\n-Confirmar contraseña: ");
-					contraseña1 = sc.nextLine();
-					if(!contraseña.equals(contraseña1)){
+					System.out.printf("\n-Contraseï¿½a: ");
+					contraseÃ±a = sc.nextLine();
+					System.out.printf("\n-Confirmar contraseï¿½a: ");
+					contraseÃ±a1 = sc.nextLine();
+					if(!contraseÃ±a.equals(contraseÃ±a1)){
 						System.out.printf("\nLas contraseï¿½as no coinciden, ingrese nuevamente ");
 					}
-				} while (!contraseña.equals(contraseña1));
+				} while (!contraseÃ±a.equals(contraseÃ±a1));
 				
 				System.out.printf("\nDATOS INGRESADOS: "+nombre+apellido+fechaNacimiento+
-						dni+domicilio+email+telefono+contraseña+contraseña1+"\n");
+						dni+domicilio+email+telefono+contraseÃ±a+contraseÃ±a1+"\n");
 				System.out.printf("\nA) Continuar\nB) Modificar\n");
 				System.out.printf("\nSu respuesta: ");
 				respuesta = sc.nextLine();
 				System.out.printf("\n###############################################\n");
 				String validacionRegistro;
 				estudianteLocal = new Estudiante(nombre,apellido,fechaNacimiento,dni,
-						domicilio,email,telefono,contraseña);
+						domicilio,email,telefono,contraseÃ±a);
+				
 				// Registra el usuario y devuelve la validacion para continuar.
 				validacionRegistro = estudianteLocal.registrarUsuario();				
 				if(validacionRegistro.equals("ok")) {
@@ -109,7 +110,7 @@ public class Menu {
 			}
 			case 3:{
 				Estudiante.inscripcionCarrera();
-				Estudiante.inscripcionMateria();
+				//Estudiante.inscripcionMateria();
 				//Menu de Estudiante
 				System.out.printf("\n###############################################\n");
 				System.out.println("\n-Menu de Estudiante-\n");
@@ -204,7 +205,7 @@ public class Menu {
 					//@@@@@@@@@@@Estudiante.verHistorialAcademico();					
 				}
 				else if(idMenu == 4) {
-				Administrador.crearMesaExamen();
+				Administrador.crearExamen();
 				}
 				break;
 				}
