@@ -18,8 +18,8 @@ Generar listado de resultados de exmenes
 */
 public class Administrador extends Usuario{
 	public Administrador(String nombre, String apellido, String fechaNacimiento, int dni, String domicilio,
-			String telefono, String email, String contraseña) {
-		super(nombre, apellido, fechaNacimiento, dni, domicilio, telefono, email, contraseña);
+			String telefono, String email, String contrasena) {
+		super(nombre, apellido, fechaNacimiento, dni, domicilio, telefono, email, contrasena);
 		
 	}
 
@@ -126,9 +126,9 @@ public class Administrador extends Usuario{
         	stmt.setString(2,nombreMateria);
         	stmt.setString(3,horasCatedra);
         	stmt.setString(4,nombreProfesor);
-        	stmt.setInt(5,idCarrera+1);
+        	stmt.setInt(5,idCarrera);
         	
-        	
+        	System.out.println(idCarrera+"este numero es el de la carrera");
         	int response = stmt.executeUpdate();
         	if(response>0) 
         	{
@@ -151,13 +151,13 @@ public class Administrador extends Usuario{
 		Scanner	sc= new Scanner(System.in);
 		
 		System.out.println("Ingrese nombre del examen: ");
-		String examen= sc.next();
+		String examen= sc.nextLine();
 		System.out.println("Ingrese fecha del examen: ");
-		String fecha= sc.next();
+		String fecha= sc.nextLine();
 		System.out.println("Ingrese inicio del examen: ");
-		String inicio= sc.next();
+		String inicio= sc.nextLine();
 		System.out.println("Ingrese final del examen: ");
-		String finalExamen= sc.next();
+		String finalExamen= sc.nextLine();
 			Statement statement = null;
 			String sql;
 			ResultSet rs;
@@ -174,16 +174,16 @@ public class Administrador extends Usuario{
 				//ULTIMO ID REGISTRADO EN LA TABLA
 				statement = conexion.createStatement();
 				sql = "SELECT idMesa_De_Examens FROM mesa_de_examens order by idMesa_De_Examens DESC LIMIT 1;"
-						+"SELECT idMateria FROM materias order by idMateria DESC LIMIT 1;";
+						;
 				rs = statement.executeQuery(sql);
 
 				while(rs.next()) {
 					idExamen = rs.getInt("idMesa_De_Examens");
-					idMateria = rs.getInt("idMateria");
+					
 					}			
 				stmt = conexion.prepareStatement("INSERT INTO mesa_de_examens VALUES (?,?,?,?,?,?)");
 	        	stmt.setInt(1,idExamen+1);
-	        	stmt.setInt(2,idMateria+1);
+	        	stmt.setInt(2,idMateria);
 	        	stmt.setString(3,examen);
 	        	stmt.setString(4,fecha);
 	        	stmt.setString(5,inicio);

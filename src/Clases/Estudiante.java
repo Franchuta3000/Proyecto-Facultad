@@ -12,14 +12,21 @@ Baja de una mesa de examen ¼
 Ver  Historial académico ¼
  */
 public class Estudiante extends Usuario{
+	boolean validarInicio;
 	
 	public Estudiante(String nombre, String apellido, String fechaNacimiento, 
 			int dni, String domicilio, String numero,
-			String email, String contraseña) {
+			String email, String contrasena) {
 		super(nombre, apellido, fechaNacimiento, dni, 
-				domicilio, numero, email, contraseña);
+				domicilio, numero, email, contrasena);
 	}
-	static void inscripcionCarrera() throws CommunicationException{
+	public boolean isValidarInicio() {
+		return validarInicio;
+	}
+	public void setValidarInicio(boolean validarInicio) {
+		this.validarInicio = validarInicio;
+	}
+	public void inscripcionCarrera() throws CommunicationException{
 		Scanner sc = new Scanner(System.in);
 		String nombreCarrera = "MWAH?";
 		String respuesta;

@@ -64,12 +64,10 @@ public class Carrera {
 			{
 			int idCarrera = rs.getInt("idCarrera");
 			String nombreCarrera = rs.getString("NombreCarrera");
-			String duracion = rs.getString("Duraci�n");
-			String tituloOtorgado = rs.getString("T�tuloOtorgado");
+			String duracion = rs.getString("Duracion");
+			String tituloOtorgado = rs.getString("TituloOtorgado");
 			System.out.println(idCarrera + ") " + nombreCarrera + " " + duracion + " " + tituloOtorgado);
-			}
-			System.out.println("Presione una tecla para continuar:");
-			int carrera= sc.nextInt();  
+			}	
 		} catch (Exception e){
         e.printStackTrace();
 		}

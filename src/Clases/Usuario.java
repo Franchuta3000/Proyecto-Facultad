@@ -14,12 +14,13 @@ import Utilidades.Conexion;
 
 public class Usuario extends Persona{
 	private String email;
-	private String contraseña;
+	private String contrasena;
 	protected int idUsuario;
 	
 	
-	 static boolean iniciarSesionUsuario(String email, String contraseña) throws Throwable{
+	 static Estudiante iniciarSesionUsuario(String email, String contrasena) throws Throwable{
 		Statement statement = null;
+		Estudiante estudiante = null;
 		String sql;
 		ResultSet rs;
 		PreparedStatement stmt;
@@ -38,8 +39,8 @@ public class Usuario extends Persona{
 			int idpersona = 0;
 			while(rs.next()) {
 				idpersona = rs.getInt("idUsuario");
-				System.out.println(idpersona+rs.getString("Correo")+rs.getString("Contrase�a"));
-				if(email.equals(rs.getString("Correo"))&& contraseña.equals(rs.getString("Contrase�a") )) {
+				System.out.println(idpersona+rs.getString("Correo")+rs.getString("Contrase�a"));
+				if(email.equals(rs.getString("Correo"))&& contrasena.equals(rs.getString("Contrase�a") )) {
 					validar=true;
 					break;
 				}else {
@@ -48,11 +49,13 @@ public class Usuario extends Persona{
 					
 				}			
 		
-		return validar;
+		estudiante.setIdUsuario(idpersona);
+		estudiante.setValidarInicio(validar);
 		}catch (Exception e) {
 			// TODO: handle exception
 		}
-		return false;
+		return estudiante;
+		
 	}
 	
 	// Getter, setter y Constructor.
@@ -62,11 +65,11 @@ public class Usuario extends Persona{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getContraseña() {
-		return contraseña;
+	public String getContrasena() {
+		return contrasena;
 	}
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
 	public int getIdUsuario() {
 		return idUsuario;
@@ -75,11 +78,11 @@ public class Usuario extends Persona{
 		this.idUsuario = idUsuario;
 	}
 	public Usuario(String nombre, String apellido, String fechaNacimiento, int dni, 
-			String domicilio, String telefono, String email, String contraseña) {
+			String domicilio, String telefono, String email, String contrasena) {
 		super(nombre, apellido, fechaNacimiento, dni, domicilio, telefono);
 		// TODO Auto-generated constructor stub
 		this.email = email;
-		this.contraseña = contraseña;
+		this.contrasena = contrasena;
 	}	
 	
 	public String registrarUsuario() throws CommunicationException 
@@ -132,7 +135,7 @@ public class Usuario extends Persona{
         	stmt.setInt(1,idUsuario+1);
         	stmt.setInt(2,idpersona+1);
         	stmt.setString(3,email);
-        	stmt.setString(4,contraseña);
+        	stmt.setString(4,contrasena);
         	
         	response = stmt.executeUpdate();
         	if(response>0){

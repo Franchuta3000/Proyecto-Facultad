@@ -11,46 +11,47 @@ public class Menu {
 	//Recibe una id para saber que menu crear (switch).
 	public static void armarMenu(int idMenu, Scanner sc) throws Throwable {
 		String respuesta,nombre, apellido,fechaNacimiento,
-		domicilio, email,telefono,contraseña, contraseña1;
+		domicilio, email,telefono,contrasena, contrasena1;
 		boolean aux = true;
 		int dni= 0;
-		Estudiante estudianteLocal;
+		Estudiante estudianteLocal = null;
 		//Bucle para que siempre haya un Menu en pantalla, a menos que se indique (aux = false;).
 		do {
-			System.out.printf("M�dulo de Gesti�n Acad�mica\n");
+			System.out.printf("Modulo de Gestion Academica\n");
 			System.out.printf("Facultad de Humanidades\n");
 			System.out.printf("\nidMenu = "+idMenu);
 			switch (idMenu) {
 			case 0: {
 				// Menu de Inicio.
 				System.out.printf("\n###############################################\n");
-				System.out.printf("\nA) Iniciar Sesi�n\nB) Registrarse\nC) Salir\n");
-				System.out.printf("\nA continuación, elija una opción (A,B,C): ");
+				System.out.printf("\nA) Iniciar Sesion\nB) Registrarse\nC) Salir\n");
+				System.out.printf("\nA continuacion, elija una opcion (A,B,C): ");
 				respuesta = sc.nextLine();
 				System.out.printf("\n###############################################\n");
 				idMenu = eleccion(respuesta, idMenu, sc);
 				break;
 			}
 			case 1: {
-				// Menú de Inicio de sesión
+				// Meno de Inicio de sesion
 				System.out.printf("\n###############################################\n");
 				System.out.printf("\n-Iniciar Sesion-\n");
 				System.out.printf("\n-E-mail: ");
 				email = sc.nextLine();
 				System.out.printf("\n-Contrasenna: ");
-				contraseña = sc.nextLine();
+				contrasena = sc.nextLine();
 				System.out.printf("\n###############################################\n");
 				
-				boolean validacionInicio = 
-						Usuario.iniciarSesionUsuario(email,contraseña);
-				if(validacionInicio) {
+			
+						estudianteLocal=Usuario.iniciarSesionUsuario(email,contrasena);
+				if(estudianteLocal.validarInicio) {
 					idMenu = 3;		
 				}
 				else {
 					System.out.println("ERROR!!! revise contrase�a y/o correo...");
 					sc.nextLine();
-					idMenu=2;
+					idMenu=1;
 				}
+				estudianteLocal.inscripcionCarrera();
 				break;
 				
 			}
@@ -58,7 +59,7 @@ public class Menu {
 				// Menú de Registro
 				System.out.printf("\n###############################################\n");
 				System.out.printf("\n-Registrarse-\n");
-				System.out.printf("\nIngres� tus datos: \n");
+				System.out.printf("\nIngrese tus datos: \n");
 				System.out.printf("\n-Nombre: ");
 				nombre = sc.nextLine();
 				System.out.printf("\n-Apellido: ");
@@ -69,30 +70,30 @@ public class Menu {
 				dni = Integer.parseInt(sc.nextLine());
 				System.out.printf("\n-Domicilio: ");
 				domicilio = sc.nextLine();
-				System.out.printf("\n-N�mero de tel�fono: ");
+				System.out.printf("\n-Numero de telefono: ");
 				telefono = sc.nextLine();
 				System.out.printf("\n-Direccion de email: ");
 				email = sc.nextLine();
 				//Resuelve si las contrase�as coinciden
 				do {				
-					System.out.printf("\n-Contrase�a: ");
-					contraseña = sc.nextLine();
+					System.out.printf("\n-Contrasena: ");
+					contrasena = sc.nextLine();
 					System.out.printf("\n-Confirmar contrase�a: ");
-					contraseña1 = sc.nextLine();
-					if(!contraseña.equals(contraseña1)){
-						System.out.printf("\nLas contrase�as no coinciden, ingrese nuevamente ");
+					contrasena1 = sc.nextLine();
+					if(!contrasena.equals(contrasena1)){
+						System.out.printf("\nLas contrasenas no coinciden, ingrese nuevamente ");
 					}
-				} while (!contraseña.equals(contraseña1));
+				} while (!contrasena.equals(contrasena1));
 				
 				System.out.printf("\nDATOS INGRESADOS: "+nombre+apellido+fechaNacimiento+
-						dni+domicilio+email+telefono+contraseña+contraseña1+"\n");
+						dni+domicilio+email+telefono+contrasena+contrasena1+"\n");
 				System.out.printf("\nA) Continuar\nB) Modificar\n");
 				System.out.printf("\nSu respuesta: ");
 				respuesta = sc.nextLine();
 				System.out.printf("\n###############################################\n");
 				String validacionRegistro;
 				estudianteLocal = new Estudiante(nombre,apellido,fechaNacimiento,dni,
-						domicilio,email,telefono,contraseña);
+						domicilio,telefono,email,contrasena);
 				
 				// Registra el usuario y devuelve la validacion para continuar.
 				validacionRegistro = estudianteLocal.registrarUsuario();				
@@ -109,17 +110,19 @@ public class Menu {
 				break;
 			}
 			case 3:{
-				Estudiante.inscripcionCarrera();
+				estudianteLocal.inscripcionCarrera();
 				//Estudiante.inscripcionMateria();
 				//Menu de Estudiante
 				System.out.printf("\n###############################################\n");
-				System.out.println("\n-Menu de Estudiante-\n");
-				System.out.println("A)Inscribirse a Examen.");
-				System.out.println("B)Dar de baja Examen.");
-				System.out.println("C)Historial Academico.");
-				System.out.println("D)Certificado de Alumno Regular (sin firma xd).");
-				System.out.println("E)Cerrar Sesion.");
-				System.out.println("\nSu respuesta: ");
+                System.out.println("\n-Menu de Estudiante-\n");
+                System.out.println("A)Inscribirse a Examen.");
+                System.out.println("B)Inscribirse a Materia.");
+                System.out.println("C)Dar de baja Examen.");
+                System.out.println("D)Historial Academico.");
+                System.out.println("E)Certificado de Alumno Regular (sin firma xd).");
+                System.out.println("F)Inscribirse a Carrera.");
+                System.out.println("G)Cerrar Sesion.");
+                System.out.println("\nSu respuesta: ");
 				respuesta = sc.nextLine();
 				idMenu = eleccion(respuesta, idMenu, sc);
 				System.out.printf("\n###############################################\n");
@@ -165,8 +168,8 @@ public class Menu {
 	static int eleccion(String respuesta, int idMenu, Scanner sc) throws Exception {
 		switch (respuesta.toUpperCase()) {
 			case "A": {
-				if(idMenu == 3) { // Proviene del Inicio
-					idMenu = 1;
+				if(idMenu == 0) { // Proviene del Inicio
+					idMenu = 1; // Se dirige al inicio de sesion
 				}
 				else if(idMenu == 2) { // Proviene del Registro
 					System.out.printf("\nRegistro realizado con éxito");
@@ -175,7 +178,7 @@ public class Menu {
 					System.out.println(idMenu);
 				}
 				else if(idMenu == 3) { // Proviene del Estudiante
-					Estudiante.inscripcionCarrera();					
+					Estudiante.inscripcionExamen();;					
 				}
 				else if(idMenu == 4) { // Proviene del Administrador
 					Administrador.crearCarrera();
@@ -183,14 +186,11 @@ public class Menu {
 				break;
 			}
 			case "B":{
-				if(idMenu == 3) {
+				if(idMenu == 0) {
 					idMenu = 2;
 				}
 				else if(idMenu == 2) {
 					idMenu = 2;
-				}
-				else if(idMenu == 3) {
-					Estudiante.bajaExamen();					
 				}
 				else if(idMenu == 4) {
 					Administrador.crearMateria();
@@ -202,7 +202,7 @@ public class Menu {
 					idMenu = 99;
 				}
 				else if(idMenu == 3) {
-					//@@@@@@@@@@@Estudiante.verHistorialAcademico();					
+					Estudiante.bajaExamen();					
 				}
 				else if(idMenu == 4) {
 				Administrador.crearExamen();
@@ -212,7 +212,7 @@ public class Menu {
 			
 			case "D":{
 				if(idMenu == 3) {
-					Estudiante.generarCertificadoAR();					
+					Estudiante.verHistorialAcademico();					
 				}
 				else if(idMenu == 4) {
 					Administrador.generarListadoResultadosExamen();
@@ -220,8 +220,23 @@ public class Menu {
 				break;
 			}
 			case "E":{
-				if(idMenu == 3 || idMenu == 4) {
+				if(idMenu == 4) {
 					idMenu = 0;					
+				}
+				else if(idMenu == 3) {
+					Estudiante.generarCertificadoAR();
+				}
+				break;
+			}
+			case "F":{
+				if(idMenu == 3) {
+			//	Estudiante.inscripcionCarrera();
+				}
+				break;
+			}
+			case "G":{
+				if(idMenu == 3) {
+				idMenu = 0;
 				}
 				break;
 			}
