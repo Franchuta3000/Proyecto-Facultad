@@ -15,9 +15,13 @@ Tests: para probar la efectividad/funcionamiento de los métodos implementados e
 Lamentablemente el proyecto no dispone de los siguientes elementos/funciones/métodos:
 
 *1* Generador de certificado de alumno regular
+
 *2* Generador de resultados de lista de Examenes
+
 *3 y 4* consideraciones a la hora de almacenar las notas  e inscribirse a  2 examenes que se realizan al mismo tiempo
+
 *5* Gui/ FrameWork / App / Web
+
 **DISEÑO**
 El diseño que se utilizo para la creación de este programa fue principalmente una Clase llamada Menu, en la cual por medio de consola se le da a elegir al programador varias opciones.
 
