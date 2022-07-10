@@ -41,6 +41,6 @@ Una vez dentro en la interfaz del administrador, el mismo podra:
 
 **OPINION PERSONAL**
 
-El proyecto pudo haber tenido un avance mas seguro, pero debido a factores internos del grupo, se complicó bastante (termine trabajando solo en el proyecto).
+El proyecto pudo haber tenido un avance mas seguro, pero debido a factores internos del grupo, se complicó bastante.
 Es muy probable que haya mucho codigo basura por limpiar, pero por falta de tiempo, se lo dejará en el estado actual que provee el "Main".
 
